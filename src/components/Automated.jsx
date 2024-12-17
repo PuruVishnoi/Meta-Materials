@@ -70,14 +70,14 @@ const Automated = () => {
         let y = row * 100 + 50;
 
         // Uncomment the following to apply offsets
-        // if (row === 0 && col === 1) x += verticalOffset; // Top middle
-        // if (row === 2 && col === 1) x += verticalOffset; // Bottom middle
-        // if (row === 1 && col === 0) y += horizontalOffset; // Left middle
-        // if (row === 1 && col === 2) y += horizontalOffset; // Right middle
-        // if (row === 1 && col === 1) {
-        //   x += randomOffset(); // Center
-        //   y += randomOffset();
-        // }
+        if (row === 0 && col === 1) x += verticalOffset; // Top middle
+        if (row === 2 && col === 1) x += verticalOffset; // Bottom middle
+        if (row === 1 && col === 0) y += horizontalOffset; // Left middle
+        if (row === 1 && col === 2) y += horizontalOffset; // Right middle
+        if (row === 1 && col === 1) {
+          x += randomOffset(); // Center
+          y += randomOffset();
+        }
 
         dots.push({ id: row * gridSize + col + 1, x, y, row, col });
       }
