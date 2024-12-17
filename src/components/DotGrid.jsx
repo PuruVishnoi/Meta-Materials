@@ -100,7 +100,9 @@ const DotGrid = () => {
         to: dot,
       };
 
-      if (validateConnection(newConnection, connections, selectedDots)) {
+      if (
+        validateConnection(newConnection, connections, selectedDots, setError)
+      ) {
         setConnections((prev) => [...prev, newConnection]);
         setSelectedDots((prev) => [...prev, dot]);
       }
@@ -175,11 +177,11 @@ const DotGrid = () => {
       )}
 
       <div className="grid grid-cols-2 gap-5">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-5">
           <svg
             width="300"
             height="300"
-            className="border-2 border-gray-300 bg-white shadow-md"
+            className="border-2 border-gray-300 bg-white"
           >
             {dots.map((dot) => (
               <circle
@@ -206,23 +208,13 @@ const DotGrid = () => {
             ))}
           </svg>
 
-          <div className="mt-4 flex space-x-4">
-            <button
-              onClick={downloadDesign}
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
-            >
-              Download Design
-            </button>
-            <button
-              onClick={resetDesign}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-            >
-              Reset Design
-            </button>
-          </div>
+          <p className="text-xl">
+            <span className="font-bold">Symmetry: </span>
+            {symmetry}
+          </p>
         </div>
 
-        <div className="mt-6 text-left text-xl">
+        <div className="text-left text-xl space-y-5">
           <p>
             <span className="font-bold">Volume Fraction: </span>
             {volumeFraction}
@@ -242,10 +234,20 @@ const DotGrid = () => {
             {JSON.stringify(boundaryNodes.top)} | Bottom:{" "}
             {JSON.stringify(boundaryNodes.bottom)}
           </p>
-          <p>
-            <span className="font-bold">Symmetry: </span>
-            {symmetry}
-          </p>
+          <div className="flex space-x-4">
+            <button
+              onClick={downloadDesign}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+            >
+              Download Design
+            </button>
+            <button
+              onClick={resetDesign}
+              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            >
+              Reset Design
+            </button>
+          </div>
         </div>
       </div>
 

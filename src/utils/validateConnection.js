@@ -1,7 +1,8 @@
 export const validateConnection = (
   newConnection,
   connections,
-  selectedDots
+  selectedDots,
+  setError
 ) => {
   for (const conn of connections) {
     if (

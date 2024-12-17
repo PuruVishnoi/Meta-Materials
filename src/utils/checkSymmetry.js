@@ -21,14 +21,32 @@ export const checkSymmetry = (connections, n) => {
     );
   };
 
+  // Remove duplicate connections (both A → B and B → A are treated as duplicates)
+  const uniqueConnections = [];
+  const seenConnections = new Set();
+
+  for (let conn of connections) {
+    const connectionKey = `${conn.from.row},${conn.from.col},${conn.to.row},${conn.to.col}`;
+    const reverseConnectionKey = `${conn.to.row},${conn.to.col},${conn.from.row},${conn.from.col}`;
+
+    // Check if the connection or its reverse has already been seen
+    if (
+      !seenConnections.has(connectionKey) &&
+      !seenConnections.has(reverseConnectionKey)
+    ) {
+      uniqueConnections.push(conn);
+      seenConnections.add(connectionKey);
+    }
+  }
+
   let horizontalSymmetric = true;
   let verticalSymmetric = true;
 
-  for (let conn of connections) {
+  for (let conn of uniqueConnections) {
     let foundHorizontalMirror = false;
     let foundVerticalMirror = false;
 
-    for (let otherConn of connections) {
+    for (let otherConn of uniqueConnections) {
       if (isHorizontalMirror(conn, otherConn)) {
         foundHorizontalMirror = true;
       }
